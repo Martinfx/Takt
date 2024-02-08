@@ -76,7 +76,7 @@ int main() {
 
     Environment env;
     // Create Default Global Environment
-  /*  //env.declareVar("x", MK_NUMBER("100"));
+   /* env.declareVar("x", MK_NUMBER("100"));
     env.declareVar("true", MK_BOOL(true));
     env.declareVar("false", MK_BOOL(false));
     env.declareVar("null", MK_NULL());*/

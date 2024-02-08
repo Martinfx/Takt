@@ -99,7 +99,7 @@ RuntimeVal evaluate(const std::shared_ptr<ast::Stmt> astNode, Environment& env) 
 
     case ast::NodeType::VarDeclaration: {
         auto declaration = std::static_pointer_cast<const ast::VarDeclaration>(astNode);
-        RuntimeVal value = declaration->value ? evaluate(declaration->value, env) : MK_NULL();
+        RuntimeVal value = declaration->val ? evaluate(declaration->val, env) : MK_NULL();
         return env.declareVar(declaration->identifier, value, declaration->constant);
         std::cout << "fuck you" << std::endl;
         break;

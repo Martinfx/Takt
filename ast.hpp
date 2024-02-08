@@ -55,12 +55,12 @@ public:
     NodeType kind;
     bool constant;
     std::string identifier;
-    std::shared_ptr<Expr> value;
+    std::shared_ptr<Expr> val;
 
     VarDeclaration(std::string identifier, bool constant) :
-         constant(constant), identifier(identifier) { }
+        constant(constant), identifier(identifier), Stmt(NodeType::VarDeclaration) { }
     VarDeclaration(std::string identifier,  bool constant, std::shared_ptr<Expr> value):
-        constant(constant), identifier(identifier), value(value){ }
+        constant(constant), identifier(identifier), val(value), Stmt(NodeType::VarDeclaration){ }
     virtual ~VarDeclaration() { }
 };
 

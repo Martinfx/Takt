@@ -83,9 +83,7 @@ public:
                 throw "Must assign value to constant expression. No value provided.";
             }
 
-           //std::shared_ptr<ast::VarDeclaration> varDecl = std::make_shared<ast::VarDeclaration>(identifier, false);
-           // return varDecl;
-            return std::make_shared<ast::VarDeclaration>(identifier, false);
+           return std::make_shared<ast::VarDeclaration>(identifier, false);
         }
 
         expect(it, TokenType::Equals, "Expected equals token following identifier in var declaration.");
