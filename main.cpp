@@ -76,10 +76,10 @@ int main() {
 
     Environment env;
     // Create Default Global Environment
-   /* env.declareVar("x", MK_NUMBER("100"));
-    env.declareVar("true", MK_BOOL(true));
-    env.declareVar("false", MK_BOOL(false));
-    env.declareVar("null", MK_NULL());*/
+   //env.declareVar("x", MK_NUMBER("100"), false);
+    env.declareVar("true", MK_BOOL(true), false);
+    env.declareVar("false", MK_BOOL(false), false);
+    env.declareVar("null", MK_NULL(), false);
 
     Parser parser;
     std::cout << "\nTakt v0.1" << std::endl;
@@ -96,9 +96,11 @@ int main() {
         }
 */
     // Produce AST From sourc-code
-    program = parser.produceAST("let x = 45*45;");
+    program = parser.produceAST("let x = 100+100;");
     for(auto i : program->body) {
-        std::cout << nodeType(i->kind) << " val: " << i->value  << std::endl;
+        std::cout << nodeType(i->kind)
+                  << " val: " << i->value
+                  << std::endl;
 
     }
     std::cout << "AST Produced:" << std::endl;

@@ -45,37 +45,37 @@ RuntimeVal evaluate(const std::shared_ptr<ast::Stmt> astNode, Environment& env) 
 
     }
     case ast::NodeType::BinaryExpr: {
-            RuntimeVal lhs = evaluate(std::static_pointer_cast<const ast::BinaryExpr>(astNode)->left, env);
-            RuntimeVal rhs = evaluate(std::static_pointer_cast<const ast::BinaryExpr>(astNode)->right, env);
-            std::string op = std::static_pointer_cast<const ast::BinaryExpr>(astNode)->op;
-            std::cout << std::static_pointer_cast<const ast::BinaryExpr>(astNode)->op;
+        RuntimeVal lhs = evaluate(std::static_pointer_cast<const ast::BinaryExpr>(astNode)->left, env);
+        RuntimeVal rhs = evaluate(std::static_pointer_cast<const ast::BinaryExpr>(astNode)->right, env);
+        std::string op = std::static_pointer_cast<const ast::BinaryExpr>(astNode)->op;
+        std::cout << std::static_pointer_cast<const ast::BinaryExpr>(astNode)->op;
 
-            if (lhs.type == ValueType::Number && rhs.type == ValueType::Number) {
-                NumberVal numLhs = static_cast<NumberVal&>(lhs);
-                NumberVal numRhs = static_cast<NumberVal&>(rhs);
-                double result;
-                if (op == "+") {
-                    result = std::stod(numLhs.value) + std::stod(numRhs.value);
-                } else if (op == "-") {
-                    result = std::stod(numLhs.value) - std::stod(numRhs.value);
-                } else if (op == "*") {
-                    result = std::stod(numLhs.value) * std::stod(numRhs.value);
-                } else if (op == "/") {
-                    // TODO: Division by zero checks
-                    result = std::stod(numLhs.value) / std::stod(numRhs.value);
-                } else {
-                    result = std::fmod(std::stod(numLhs.value),std::stod(numRhs.value));
-                }
-
-                NumberVal val;
-                val.value = std::to_string(result);
-                return val;
+        if (lhs.type == ValueType::Number && rhs.type == ValueType::Number) {
+            NumberVal numLhs = static_cast<NumberVal&>(lhs);
+            NumberVal numRhs = static_cast<NumberVal&>(rhs);
+            double result;
+            if (op == "+") {
+                result = std::stod(numLhs.value) + std::stod(numRhs.value);
+            } else if (op == "-") {
+                result = std::stod(numLhs.value) - std::stod(numRhs.value);
+            } else if (op == "*") {
+                result = std::stod(numLhs.value) * std::stod(numRhs.value);
+            } else if (op == "/") {
+                // TODO: Division by zero checks
+                result = std::stod(numLhs.value) / std::stod(numRhs.value);
+            } else {
+                result = std::fmod(std::stod(numLhs.value),std::stod(numRhs.value));
             }
 
-            // Jedna nebo obě hodnoty jsou NULL
-            return MK_NULL();
-            break;
+            NumberVal val;
+            val.value = std::to_string(result);
+            return val;
         }
+
+        // Jedna nebo obě hodnoty jsou NULL
+        return MK_NULL();
+        break;
+    }
 
 
     case ast::NodeType::Program: {
@@ -94,17 +94,13 @@ RuntimeVal evaluate(const std::shared_ptr<ast::Stmt> astNode, Environment& env) 
         }
         break;
     }
-
-
-
     case ast::NodeType::VarDeclaration: {
         auto declaration = std::static_pointer_cast<const ast::VarDeclaration>(astNode);
         RuntimeVal value = declaration->val ? evaluate(declaration->val, env) : MK_NULL();
         return env.declareVar(declaration->identifier, value, declaration->constant);
-        std::cout << "fuck you" << std::endl;
         break;
     }
-        // Handle unimplemented ast types as error.
+    // Handle unimplemented ast types as error.
     default:
         std::cerr << "This AST Node has not yet been set up for interpretation." << std::endl;
         std::exit(0);
