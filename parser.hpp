@@ -95,7 +95,20 @@ public:
     }
 
     std::shared_ptr<ast::Expr> parse_expr(TokenIterator& it) {
-        return parse_additive_expr(it);
+        return parse_assignment_expr(it);
+    }
+
+    std::shared_ptr<ast::Expr> parse_assignment_expr(TokenIterator& it) {
+        std::shared_ptr<ast::Expr> left = parse_additive_expr(it);
+
+        if (at(it).m_type == TokenType::Equals) {
+           eat(it); // advance past equals
+           std::shared_ptr<ast::Expr> value = parse_assignment_expr( it);
+           //return AssignmentExpr{value, left, "AssignmentExpr"};
+           return std::make_shared<ast::AssignmentExpr>(value, left, ast::NodeType::AssignmentExpr);
+        }
+
+        return left;
     }
 
     std::shared_ptr<ast::Expr> parse_additive_expr(TokenIterator& it) {

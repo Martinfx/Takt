@@ -96,7 +96,7 @@ int main() {
         }
 */
     // Produce AST From sourc-code
-    program = parser.produceAST("let x = 100+100;");
+    program = parser.produceAST("let x = 45;");
     for(auto i : program->body) {
         std::cout << nodeType(i->kind)
                   << " val: " << i->value

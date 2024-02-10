@@ -44,6 +44,16 @@ RuntimeVal evaluate(const std::shared_ptr<ast::Stmt> astNode, Environment& env) 
         return val;
 
     }
+
+    case ast::NodeType::AssignmentExpr: {
+     /*   if (astNode.assigne.kind != "Identifier") {
+            throw std::runtime_error("Invalid LHS inside assignment expr: " + node.assigne.symbol);
+        }
+
+        const std::string& varname = dynamic_cast<const Identifier&>(node.assigne).symbol;
+        return env.assignVar(varname, evaluate(node.value, env));*/
+        break;
+    }
     case ast::NodeType::BinaryExpr: {
         RuntimeVal lhs = evaluate(std::static_pointer_cast<const ast::BinaryExpr>(astNode)->left, env);
         RuntimeVal rhs = evaluate(std::static_pointer_cast<const ast::BinaryExpr>(astNode)->right, env);

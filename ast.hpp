@@ -100,6 +100,18 @@ public:
     }*/
 };
 
+class AssignmentExpr : public Expr {
+public:
+    NodeType kind;
+    std::shared_ptr<ast::Expr> assigne;
+    std::shared_ptr<ast::Expr> value;
+    AssignmentExpr(std::shared_ptr<ast::Expr> value,
+                   std::shared_ptr<ast::Expr> assigne,
+                   NodeType kind): kind(kind), value(value), assigne(assigne),
+        Expr(NodeType::AssignmentExpr) {}
+    virtual ~AssignmentExpr() {}
+};
+
 
 class CallExpr : Expr {
     NodeType kind;
