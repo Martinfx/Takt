@@ -85,7 +85,7 @@ int main() {
     std::cout << "\nTakt v0.1" << std::endl;
     std::shared_ptr<ast::Program> program;
     // Continue Repl Until User Stops Or Types `exit`
-   /* while (true) {
+    while (true) {
        std::string input;
         std::cout << "> ";
         std::getline(std::cin, input);
@@ -94,9 +94,9 @@ int main() {
         if (input.empty() || input.find("exit") != std::string::npos) {
             std::exit(0);
         }
-*/
+
     // Produce AST From sourc-code
-    program = parser.produceAST("let x = 45;");
+    program = parser.produceAST(input);
     for(auto i : program->body) {
         std::cout << nodeType(i->kind)
                   << " val: " << i->value
@@ -107,7 +107,7 @@ int main() {
     auto result = evaluate(program, env);
     std::cout << ValueType(result.type) << std::endl;
     std::cout << result.value << std::endl;
- //   }
+   }
 
     return 0;
 }
