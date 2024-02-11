@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <memory>
 #include <iostream>
@@ -56,6 +57,7 @@ public:
             std::cout << "begin - programNode.body.capacity(): " << programNode->body.capacity() << std::endl;
             programNode->body.push_back(parse_stmt(it));
             std::cout << "end - programNode.body.capacity(): " << programNode->body.capacity() << std::endl;
+
         }
 
         return programNode;
@@ -66,8 +68,10 @@ public:
         case TokenType::Let:
         case TokenType::Const:
            return parse_var_declaration(it);
+           break;
         default:
             return parse_expr(it);
+            break;
         }
     }
 
@@ -101,10 +105,9 @@ public:
     std::shared_ptr<ast::Expr> parse_assignment_expr(TokenIterator& it) {
         std::shared_ptr<ast::Expr> left = parse_additive_expr(it);
 
-        if (at(it).m_type == TokenType::Equals) {
+        if (at(it).getTokenType() == TokenType::Equals) {
            eat(it); // advance past equals
            std::shared_ptr<ast::Expr> value = parse_assignment_expr( it);
-           //return AssignmentExpr{value, left, "AssignmentExpr"};
            return std::make_shared<ast::AssignmentExpr>(value, left, ast::NodeType::AssignmentExpr);
         }
 
